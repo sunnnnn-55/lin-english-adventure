@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#ffd55c" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Lin's English Adventure" />
+  <title>Lin's English Adventure | V10 Recalibrated Targets + Faster Voice Flow</title>
+  <style>
+    :root{--ink:#242038;--cream:#fff8e7;--gold:#ffc94d;--orange:#ff8a5a;--green:#52bf82;--red:#f16d65;--shade:0 16px 36px rgba(42,27,45,.18)}
+    *{box-sizing:border-box}html,body{min-height:100%;margin:0;background:radial-gradient(circle at 50% -5%,#fff0aa,#fff9ea 39%,#fff 100%);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Rounded","Arial Rounded MT Bold",sans-serif;color:var(--ink)}button{font:inherit;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}.app{width:min(100%,560px);min-height:100svh;margin:0 auto;padding:16px 14px 25px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:3px 2px 13px}.brand{display:flex;align-items:center;gap:10px}.mark{width:45px;height:45px;display:grid;place-items:center;border-radius:17px;background:linear-gradient(145deg,#fff6bd,#ffc43d);box-shadow:0 8px 17px rgba(189,123,14,.18);font-size:25px}.brand h1{margin:0;font-size:19px;line-height:1.04;letter-spacing:.2px}.brand p{margin:4px 0 0;font-size:11px;font-weight:900;color:#7f7289;letter-spacing:.8px}.score{min-width:91px;padding:8px 12px;border:2px solid #ffe2a2;border-radius:18px;background:#fff;text-align:center;font-weight:1000;box-shadow:0 8px 18px rgba(88,47,11,.08)}.score b{color:#f08d16;font-size:20px}.stage{position:relative;overflow:hidden;border-radius:30px;background:#201924;box-shadow:var(--shade);aspect-ratio:9/16}.stage video{display:block;width:100%;height:100%;object-fit:cover;background:#201924}.hud{position:absolute;top:12px;left:12px;right:12px;z-index:12;display:flex;justify-content:space-between;pointer-events:none}.pill{padding:7px 10px;border-radius:999px;background:rgba(35,22,38,.5);backdrop-filter:blur(8px);color:#fff;font-size:12px;font-weight:1000;letter-spacing:.25px}.intro,.finish{position:absolute;z-index:30;inset:0;display:flex;align-items:center;justify-content:center;padding:18px;text-align:center;background:linear-gradient(180deg,rgba(27,17,29,.06),rgba(27,17,29,.76))}.card{width:100%;padding:24px 19px;border-radius:28px;background:rgba(255,255,255,.96);box-shadow:0 16px 34px rgba(0,0,0,.22)}.big{font-size:45px;line-height:1}.card h2{margin:10px 0 7px;font-size:28px;letter-spacing:-.4px}.card p{margin:0 0 17px;color:#71677b;font-weight:750;line-height:1.5}.start{width:100%;padding:16px;border-radius:18px;color:#fff;background:linear-gradient(135deg,var(--gold),var(--orange));font-size:19px;font-weight:1000;box-shadow:0 9px 19px rgba(246,126,65,.33)}.tiny{margin-top:10px!important;font-size:11px!important;color:#92859c!important}.hidden{display:none!important}
+    .tap-layer{position:absolute;z-index:18;inset:0;width:100%;height:100%;pointer-events:auto;overflow:visible}.tap-path,.tap-text{fill:rgba(255,214,80,.012);stroke:transparent;stroke-width:1;pointer-events:all;cursor:pointer;touch-action:manipulation;paint-order:stroke fill}.tap-text{font-family:'Arial Rounded MT Bold','SF Pro Rounded',system-ui,sans-serif;font-weight:1000;letter-spacing:-4px}.tap-path.glow,.tap-text.glow{fill:rgba(255,225,88,.018);stroke:rgba(255,221,77,.88);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round;filter:url(#contourGlow);animation:contourPulse 1.38s ease-in-out infinite}.tap-text.glow{stroke-width:3.6;fill:rgba(255,225,88,.025)}.tap-path:active{opacity:.72}.tap-path.wrong,.tap-text.wrong{fill:rgba(242,94,85,.14)!important;stroke:rgba(242,94,85,.92)!important;stroke-width:4!important;filter:none!important;animation:shake .34s ease-in-out}.tap-path.correct,.tap-text.correct{fill:rgba(255,222,77,.14)!important;stroke:rgba(255,231,103,1)!important;stroke-width:3.3!important;filter:url(#contourGlowStrong)!important;animation:none!important}.prompt{position:absolute;z-index:23;top:55px;left:50%;display:none;transform:translateX(-50%);min-width:140px;max-width:57%;padding:6px 9px;border-radius:14px;background:rgba(255,255,255,.91);color:#322b44;box-shadow:0 8px 18px rgba(12,6,14,.17);text-align:center}.prompt.on{display:flex;align-items:center;justify-content:center;gap:7px}.prompt b{font-size:10px;letter-spacing:.2px}.hear{width:26px;height:26px;border-radius:50%;background:#f3e7ff;color:#6b469a;font-size:15px;font-weight:1000}.word-memory{position:absolute;z-index:25;left:50%;bottom:22%;display:none;transform:translateX(-50%);width:min(74%,340px);padding:12px 16px;border-radius:22px;background:rgba(255,255,255,.96);box-shadow:0 13px 32px rgba(0,0,0,.24);text-align:center}.word-memory.on{display:block;animation:rise .28s ease-out both}.word-memory .star{font-size:27px;line-height:1;color:#ffc94d;text-shadow:0 2px 0 rgba(173,101,7,.22),0 0 15px rgba(255,201,77,.62)}.word-memory h2{margin:2px 0 1px;font-size:34px;line-height:1.08;letter-spacing:1.1px}.word-memory p{margin:4px 0 0;font-size:13px;color:#7a7084;font-weight:900}.speak-panel{position:absolute;z-index:26;left:50%;bottom:6%;display:none;transform:translateX(-50%);width:min(84%,390px);padding:12px 14px 13px;border-radius:21px;background:rgba(34,27,48,.93);box-shadow:0 15px 34px rgba(0,0,0,.28);color:#fff;text-align:center}.speak-panel.on{display:block;animation:rise .26s ease-out both}.voice-kicker{font-size:10px;font-weight:1000;letter-spacing:1.4px;color:#ffd766}.voice-stars{display:flex;justify-content:center;gap:10px;margin:5px 0 8px}.voice-star{font-size:23px;line-height:1;color:rgba(255,255,255,.22);transition:transform .13s ease,color .13s ease,filter .13s ease}.voice-star.on{color:#ffc94d;transform:scale(1.18);filter:drop-shadow(0 0 7px rgba(255,206,66,.8));animation:starPop .25s ease-out}.mic-btn{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;margin:0 auto 7px;background:linear-gradient(145deg,#ffd764,#ff9b55);color:#2a2238;font-size:27px;box-shadow:0 8px 17px rgba(255,148,77,.33);font-weight:1000;pointer-events:none}.mic-btn.listening{animation:micpulse .72s ease-in-out infinite;background:linear-gradient(145deg,#fff6b9,#ffc23d)}.mic-btn.retry{pointer-events:auto;background:linear-gradient(145deg,#ffd764,#ff9b55);box-shadow:0 8px 17px rgba(255,148,77,.33)}.voice-hint{margin:0;font-size:12px;line-height:1.32;font-weight:900;color:#fbf8ff}.voice-privacy{margin:5px 0 0;font-size:9px;color:#cfc7de;font-weight:700}.progress{height:8px;overflow:hidden;border-radius:99px;background:#f0eadc;margin:15px 2px 0}.progress span{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#ffc94d,#ff8a5a);transition:width .1s linear}.tip{margin:13px 5px 0;text-align:center;color:#877d91;font-size:12px;font-weight:750;line-height:1.48}.hidden{display:none!important}@keyframes contourPulse{0%,100%{stroke-opacity:.48;fill-opacity:.018;filter:url(#contourGlow)}50%{stroke-opacity:1;fill-opacity:.08;filter:url(#contourGlowStrong)}}@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}@keyframes rise{from{transform:translate(-50%,13px);opacity:0}to{transform:translate(-50%,0);opacity:1}}@keyframes starPop{0%{transform:scale(.72)}75%{transform:scale(1.3)}100%{transform:scale(1.18)}}@keyframes micpulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(255,207,71,.52),0 8px 17px rgba(255,148,77,.33)}50%{transform:scale(1.08);box-shadow:0 0 0 12px rgba(255,207,71,0),0 8px 17px rgba(255,148,77,.33)}}@media(min-width:590px){body{padding:20px}.app{border-radius:34px;background:#fffdf8;box-shadow:0 24px 58px rgba(87,53,16,.18)}.stage{border-radius:34px}}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="top"><div class="brand"><div class="mark">★</div><div><h1>LIN'S ENGLISH<br>ADVENTURE</h1><p>EPISODE 1 · FIND · TAP · SPEAK</p></div></div><div class="score">★ <b id="score">0</b></div></header>
+    <section class="stage" id="stage">
+      <video id="video" playsinline preload="auto"><source src="https://github.com/sunnnnn-55/lin-english-adventure/releases/download/v1.0.0-ep1/EP1_60.MP4" type="video/mp4">Your device cannot play this video.</video>
+      <div class="hud"><span class="pill" id="state">READY</span><span class="pill" id="time">0:00 / 1:00</span></div>
+      <svg class="tap-layer" id="tapLayer" viewBox="0 0 512 910" preserveAspectRatio="none" aria-label="Tap targets" role="group"><defs><filter id="contourGlow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3.2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="contourGlowStrong" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="5.2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs></svg>
+      <div class="prompt" id="prompt"><button class="hear" id="hear" aria-label="Hear again">🔊</button><b id="promptText">Listen and tap.</b></div>
+      <div class="word-memory" id="memory"><div class="star">★</div><h2 id="memoryWord">DOG</h2><p>Listen. Remember.</p></div>
+      <div class="speak-panel" id="speakPanel" aria-live="polite">
+        <div class="voice-kicker">YOUR TURN · SAY IT TWICE</div>
+        <div class="voice-stars" id="voiceStars"><span class="voice-star">★</span><span class="voice-star">★</span></div>
+        <button class="mic-btn auto" id="micBtn" aria-label="Microphone listening status">🎙</button>
+        <p class="voice-hint" id="voiceHint">Get ready. Just say the word.</p>
+        <p class="voice-privacy">This site does not save recordings.</p>
+      </div>
+      <div class="intro" id="intro"><div class="card"><div class="big">★</div><h2>Listen. Find. Say it.</h2><p>Listen to the full English first.<br>Then find it in the animation and say it twice.</p><button class="start" id="start">START EPISODE 1 ▶</button><p class="tiny" id="hint">Use sound for the best experience.</p></div></div>
+      <div class="finish hidden" id="finish"><div class="card"><div class="big">★</div><h2>Great job!</h2><p id="summary">You finished Episode 1.</p><button class="start" id="again">PLAY AGAIN ▶</button></div></div>
+    </section>
+    <div class="progress"><span id="progress"></span></div>
+    <p class="tip" id="tip">Listen to the English word, then tap it in the animation.</p>
+  </main>
+<script>
+// v10: recalibrated scene timing, exact educational targets, and faster ready-to-speak flow.
+(() => {
+  const NS='http://www.w3.org/2000/svg';
+  const video=document.querySelector('#video');
+  const intro=document.querySelector('#intro'), finish=document.querySelector('#finish');
+  const stateEl=document.querySelector('#state'), timeEl=document.querySelector('#time'), scoreEl=document.querySelector('#score');
+  const tapLayer=document.querySelector('#tapLayer'), prompt=document.querySelector('#prompt'), hear=document.querySelector('#hear'), promptText=document.querySelector('#promptText');
+  const memory=document.querySelector('#memory'), memoryWord=document.querySelector('#memoryWord');
+  const speakPanel=document.querySelector('#speakPanel'), micBtn=document.querySelector('#micBtn'), voiceHint=document.querySelector('#voiceHint'), voiceStars=[...document.querySelectorAll('.voice-star')];
+  const progress=document.querySelector('#progress'), tip=document.querySelector('#tip'), summary=document.querySelector('#summary'), hint=document.querySelector('#hint');
+  let score=0, active=null, started=false, voice=null, holding=false, guideTimer=null;
+  let activeGroup=null, activeIndex=0, finishedGroups=new Set();
+  let voicePasses=0, recognition=null, recognitionBusy=false, micChecked=false, audioCtx=null, seenSpeechUnits=0;
+  let listeningWanted=false, restartTimer=null, manualRetry=false, activityEnded=false;
+  let pauseCursor=0, speechGateOpen=false, micWarm=false;
+  const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+
+  // All pause points are after the original animation has finished saying its English.
+  // Paths use the original 512 × 910 video coordinates and trace the actual object contours.
+  // V8: targets trace the educational word / picture itself, not the child.
+  // Coordinates are the original 512 × 910 video canvas.
+  const helloWord={kind:'text',id:'hello-word',x:52,y:150,text:'HELLO',size:86,correct:true};
+  const seeYouWord={kind:'text',id:'seeyou-word',x:74,y:805,text:'SEE YOU',size:54,correct:true};
+  // These targets trace the PICTURE or WORD the child is learning—not the whole card and not a nearby object.
+  const appleCard='M92 84 L241 104 L219 324 L63 301 Z';
+  const bananaCard='M273 94 L438 78 L455 288 L291 302 Z';
+  const orangeCard='M213 495 L401 510 L392 742 L204 728 Z';
+  const dog='M12 865 C15 824 46 787 86 777 C124 768 157 789 166 824 C173 854 159 883 131 896 C98 913 53 908 27 889 Z';
+  const bird='M295 352 L455 372 L435 585 L277 566 Z';
+  const butterfly='M278 585 L474 604 L455 852 L258 833 Z';
+  const goodJob='M92 166 C95 134 118 112 151 110 L361 110 C399 111 425 136 427 170 L427 448 C425 485 400 507 362 509 L151 508 C115 506 91 482 90 445 Z';
+  const starGood='M56 108 L74 152 L122 156 L85 186 L96 233 L56 206 L16 233 L27 186 L-10 156 L38 152 Z';
+  const groups=[
+    {id:'hello',at:15.35,pauseAt:15.35,items:[{word:'HELLO',say:'Hello',prompt:'Hello. Tap hello.',label:'TAP HELLO',targets:[helloWord]}]},
+    {id:'fruit',at:22.95,pauseAt:22.95,items:[
+      {word:'APPLE',say:'Apple',prompt:'Apple. Tap the apple.',label:'TAP APPLE',targets:[{id:'apple-card',d:appleCard,correct:true},{id:'banana-card',d:bananaCard}]},
+      {word:'BANANA',say:'Banana',prompt:'Banana. Tap the banana.',label:'TAP BANANA',targets:[{id:'apple-card',d:appleCard},{id:'banana-card',d:bananaCard,correct:true}]}
+    ]},
+    {id:'orange',at:29.55,pauseAt:29.55,items:[{word:'ORANGE',say:'Orange',prompt:'Orange. Tap the orange.',label:'TAP ORANGE',targets:[{id:'orange-card',d:orangeCard,correct:true},{id:'apple-card',d:appleCard}]}]},
+    {id:'animals',at:38.35,pauseAt:38.35,items:[
+      {word:'DOG',say:'Dog',prompt:'Dog. Tap the dog.',label:'TAP DOG',targets:[{id:'dog',d:dog,correct:true},{id:'bird',d:bird},{id:'butterfly',d:butterfly}]},
+      {word:'BIRD',say:'Bird',prompt:'Bird. Tap the bird.',label:'TAP BIRD',targets:[{id:'dog',d:dog},{id:'bird',d:bird,correct:true},{id:'butterfly',d:butterfly}]},
+      {word:'BUTTERFLY',say:'Butterfly',prompt:'Butterfly. Tap the butterfly.',label:'TAP BUTTERFLY',targets:[{id:'dog',d:dog},{id:'bird',d:bird},{id:'butterfly',d:butterfly,correct:true}]}
+    ]},
+    {id:'goodjob',at:52.65,pauseAt:52.65,items:[{word:'GOOD JOB',say:'Good job',prompt:'Good job. Tap the good job sign.',label:'TAP GOOD JOB',targets:[{id:'goodjob',d:goodJob,correct:true},{id:'star',d:starGood}]}]},
+    {id:'seeyou',afterEnd:true,items:[{word:'SEE YOU NEXT TIME',say:'See you next time',prompt:'See you next time. Tap the words.',label:'TAP SEE YOU',targets:[seeYouWord]}]}
+  ];
+
+  function chooseVoice(){
+    if(!('speechSynthesis' in window)) return null;
+    const all=speechSynthesis.getVoices(), en=all.filter(v=>/^en(-US)?/i.test(v.lang));
+    const pref=[/Siri/i,/Samantha/i,/Ava/i,/Karen/i,/Allison/i,/Jenny/i,/Aria/i,/Nicky/i,/Zira/i];
+    return pref.map(r=>en.find(v=>r.test(v.name)&&v.localService)).find(Boolean)||pref.map(r=>en.find(v=>r.test(v.name))).find(Boolean)||en.find(v=>v.localService)||en[0]||all.find(v=>/^en/i.test(v.lang))||null;
+  }
+  function refreshVoice(){voice=chooseVoice();}
+  if('speechSynthesis' in window){refreshVoice(); speechSynthesis.onvoiceschanged=refreshVoice;}
+  function speak(text,done){
+    if(!('speechSynthesis' in window)){done&&done();return;}
+    speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=.9;u.pitch=1.01;u.volume=1;if(voice)u.voice=voice;
+    u.onend=()=>done&&done();u.onerror=()=>done&&done();speechSynthesis.speak(u);
+  }
+  function playStarDing(kind=1){
+    const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+    try{if(!audioCtx)audioCtx=new AC(); const c=audioCtx;if(c.state==='suspended')c.resume(); const n=c.currentTime;
+      const notes=kind===2?[[1174,.0,.15,.46],[1568,.06,.13,.42],[2093,.13,.11,.35]]:[[1318,.0,.12,.5],[1760,.07,.09,.35]];
+      notes.forEach(([f,d,l,v])=>{const o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.setValueAtTime(f,n+d);g.gain.setValueAtTime(.0001,n+d);g.gain.exponentialRampToValueAtTime(v,n+d+.012);g.gain.exponentialRampToValueAtTime(.0001,n+d+l);o.connect(g).connect(c.destination);o.start(n+d);o.stop(n+d+l+.025);});
+    }catch(e){}
+  }
+  function playReadyChime(){
+    const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+    try{if(!audioCtx)audioCtx=new AC();const c=audioCtx;if(c.state==='suspended')c.resume();const n=c.currentTime;const o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.setValueAtTime(880,n);o.frequency.linearRampToValueAtTime(1320,n+.11);g.gain.setValueAtTime(.0001,n);g.gain.exponentialRampToValueAtTime(.22,n+.01);g.gain.exponentialRampToValueAtTime(.0001,n+.16);o.connect(g).connect(c.destination);o.start(n);o.stop(n+.18);}catch(e){}
+  }
+  function fmt(s){return `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;}
+  function clearGuide(){if(guideTimer){clearTimeout(guideTimer);guideTimer=null;}}
+  function clearTargets(){[...tapLayer.querySelectorAll('.tap-path,.tap-text')].forEach(n=>n.remove());clearGuide();}
+  function renderVoiceStars(){voiceStars.forEach((s,i)=>s.classList.toggle('on',i<voicePasses));}
+  function setPlayError(){started=false;stateEl.textContent='TAP TO START';hint.textContent='Video is still loading. Tap START once more.';intro.classList.remove('hidden');}
+  function makePath(t){
+    const isText=t.kind==='text';
+    const p=document.createElementNS(NS,isText?'text':'path');
+    if(isText){p.setAttribute('x',t.x);p.setAttribute('y',t.y);p.setAttribute('font-size',t.size);p.setAttribute('dominant-baseline','alphabetic');p.textContent=t.text;p.classList.add('tap-text');}
+    else {p.setAttribute('d',t.d);p.classList.add('tap-path');}
+    p.setAttribute('data-id',t.id);if(t.correct)p.classList.add('glow');p.setAttribute('aria-label',t.correct?'correct answer':'answer');p.addEventListener('click',()=>tapAnswer(p,!!t.correct));tapLayer.appendChild(p);
+  }
+
+  function stopRecognition(){listeningWanted=false;clearTimeout(restartTimer);if(recognition&&recognitionBusy){try{recognition.abort();}catch(e){}}recognitionBusy=false;micBtn.classList.remove('listening');}
+  function releaseMic(){const stream=window.__linLessonMic;if(stream&&stream.getTracks){stream.getTracks().forEach(t=>t.stop());}window.__linLessonMic=null;micChecked=false;micWarm=false;}
+  function hideVoicePanel(){stopRecognition();speakPanel.classList.remove('on');micBtn.classList.remove('retry');manualRetry=false;voicePasses=0;renderVoiceStars();}
+  function showGroup(group){if(activeGroup||holding)return;activeGroup=group;activeIndex=0;video.pause();pauseCursor=video.currentTime||Number(group.pauseAt||0);showItem();}
+  function showItem(){
+    if(!activeGroup||holding)return;active=activeGroup.items[activeIndex];prompt.classList.remove('on');clearTargets();hideVoicePanel();memory.classList.remove('on');speechGateOpen=false;seenSpeechUnits=0;
+    active.targets.forEach(makePath);promptText.textContent=active.label;prompt.classList.add('on');stateEl.textContent='LISTEN';tip.textContent='Listen, then find it in the animation.';
+    const task=active;setTimeout(()=>{if(active===task&&!holding)speak(task.prompt);},140);
+
+  }
+  function tapAnswer(path,correct){
+    if(!active||holding)return;
+    if(!correct){path.classList.add('wrong');setTimeout(()=>path.classList.remove('wrong'),410);return;}
+    holding=true;clearGuide();[...tapLayer.querySelectorAll('.tap-path')].forEach(p=>p.style.pointerEvents='none');path.classList.remove('glow');path.classList.add('correct');prompt.classList.remove('on');
+    score++;scoreEl.textContent=score;stateEl.textContent='GREAT JOB';memoryWord.textContent=active.word;memory.classList.add('on');tip.textContent='Listen. Remember the word.';playStarDing(1);
+    const task=active;setTimeout(()=>speak(`${task.say}. ${task.say}.`,()=>setTimeout(()=>openSpeakPractice(task),150)),80);
+  }
+
+  async function ensureMic(){
+    if(micChecked)return true;
+    if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){micChecked=true;return true;}
+    const stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}});
+    // Keep the permission stream alive only during this lesson. It is never recorded or uploaded.
+    window.__linLessonMic=stream;micChecked=true;micWarm=true;return true;
+  }
+  function initRecognition(){
+    if(!SpeechRecognition)return false;if(recognition)return true;
+    recognition=new SpeechRecognition();recognition.lang='en-US';recognition.continuous=true;recognition.interimResults=true;recognition.maxAlternatives=1;
+    recognition.onstart=()=>{recognitionBusy=true;micBtn.classList.add('listening');micBtn.classList.remove('retry');speechGateOpen=true;stateEl.textContent='YOUR TURN';voiceHint.textContent=`Go! Say ${active?active.word:'the word'} two times.`;playReadyChime();};
+    recognition.onresult=(event)=>{if(!active||!holding||!speechGateOpen)return;let heard=0;for(let i=event.resultIndex;i<event.results.length;i++){const best=event.results[i][0];if(best)heard=Math.max(heard,countHeardMatches(best.transcript,active));}if(heard>seenSpeechUnits){const added=heard-seenSpeechUnits;seenSpeechUnits=heard;acceptSpokenReps(added);}};
+    recognition.onerror=(e)=>{recognitionBusy=false;micBtn.classList.remove('listening');if(e.error==='not-allowed'||e.error==='service-not-allowed'){listeningWanted=false;stateEl.textContent='MICROPHONE';voiceHint.textContent='An adult needs to allow the microphone.';enableManualRetry();}else if(e.error==='no-speech'){if(listeningWanted&&holding)restartTimer=setTimeout(startAutoListening,70);}else{stateEl.textContent='VOICE CHECK';voiceHint.textContent='Voice check is unavailable here. Open this lesson in Safari.';enableManualRetry();}};
+    recognition.onend=()=>{recognitionBusy=false;micBtn.classList.remove('listening');if(listeningWanted&&active&&holding&&voicePasses<2){clearTimeout(restartTimer);restartTimer=setTimeout(startAutoListening,40);}};
+    return true;
+  }
+  function escapeRegExp(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+  function countHeardMatches(text,task){
+    const raw=String(text||'').toLowerCase().replace(/[’']/g,'');const phrase=String(task.say||'').toLowerCase().replace(/[’']/g,'');
+    const re=new RegExp('\\b'+escapeRegExp(phrase)+'\\b','g');const found=raw.match(re);if(found&&found.length)return found.length;
+    const compact=raw.replace(/[^a-z]/g,''),target=phrase.replace(/[^a-z]/g,'');if(target==='dog'){const dogHits=(raw.match(/\bdog\b/g)||[]).length || (compact.match(/dog/g)||[]).length;if(dogHits)return dogHits;}return (compact.includes(target)||(target.includes(compact)&&compact.length>=3))?1:0;
+  }
+  async function startAutoListening(){
+    if(!active||!holding||voicePasses>=2||recognitionBusy||!listeningWanted)return;if(!SpeechRecognition){listeningWanted=false;stateEl.textContent='SAFARI NEEDED';voiceHint.textContent='Open this lesson in Safari for voice practice.';return;}
+    try{await ensureMic();if(!initRecognition())return;recognition.start();}catch(e){recognitionBusy=false;stateEl.textContent='MICROPHONE';voiceHint.textContent='Tap the microphone once to continue.';enableManualRetry();}
+  }
+  function enableManualRetry(){manualRetry=true;micBtn.classList.add('retry');micBtn.style.pointerEvents='auto';}
+  function acceptSpokenReps(reps){
+    if(!active||!holding||voicePasses>=2)return;
+    const gained=Math.min(2-voicePasses,reps);if(!gained)return;
+    const task=active;
+    const addOne=()=>{if(active!==task||!holding||voicePasses>=2)return;voicePasses++;renderVoiceStars();playStarDing(1);};
+    addOne();
+    if(gained>1){setTimeout(addOne,55);}
+    const finalDelay=gained>1?90:0;
+    setTimeout(()=>{
+      if(active!==task||!holding)return;
+      if(voicePasses>=2){listeningWanted=false;if(recognition&&recognitionBusy){try{recognition.stop();}catch(e){}}stateEl.textContent='GREAT SPEAKING';voiceHint.textContent='Great speaking!';setTimeout(continueAfterVoice,260);}
+      else{stateEl.textContent='KEEP GOING';voiceHint.textContent=`Good! Say ${active.word} one more time.`;}
+    },finalDelay);
+  }
+  function openSpeakPractice(task){
+    if(active!==task||!holding)return;
+    voicePasses=0;seenSpeechUnits=0;renderVoiceStars();speechGateOpen=false;speakPanel.classList.add('on');stateEl.textContent='GETTING READY';voiceHint.textContent=`Get ready. Say ${task.word} two times.`;tip.textContent='Wait for “Go!”, then say the same English word twice.';
+    listeningWanted=true;
+    startAutoListening();
+  }
+  function continueAfterVoice(){
+    if(!holding)return;memory.classList.remove('on');hideVoicePanel();clearTargets();active=null;holding=false;
+    if(activeGroup&&activeIndex<activeGroup.items.length-1){activeIndex++;setTimeout(showItem,180);return;}
+    const doneGroup=activeGroup;if(doneGroup)finishedGroups.add(doneGroup.id);activeGroup=null;
+    if(doneGroup&&doneGroup.afterEnd){showFinish();return;}
+    stateEl.textContent='WATCH';tip.textContent='Keep watching. The next word is coming soon.';try{video.playbackRate=1;}catch(e){}setTimeout(()=>video.play().catch(setPlayError),120);
+  }
+  function showFinish(){releaseMic();clearTargets();prompt.classList.remove('on');memory.classList.remove('on');finish.classList.remove('hidden');stateEl.textContent='DONE';summary.textContent=`You got ${score} stars.`;tip.textContent='Great listening and speaking today.';speak('Great job! See you next time!');}
+  function repeat(){if(active)speak(active.prompt);}
+  async function resetLesson(){
+    score=0;active=null;activeGroup=null;activeIndex=0;finishedGroups=new Set();holding=false;activityEnded=false;scoreEl.textContent='0';clearTargets();hideVoicePanel();prompt.classList.remove('on');memory.classList.remove('on');finish.classList.add('hidden');intro.classList.add('hidden');started=true;if('speechSynthesis' in window)speechSynthesis.cancel();
+    try{await ensureMic();}catch(e){}try{if(video.currentTime>.2||video.ended)video.currentTime=0;}catch(e){}stateEl.textContent='LOADING';tip.textContent='Loading video…';video.playbackRate=1;video.play().then(()=>{stateEl.textContent='WATCH';tip.textContent='Listen to the full English before the game stops.';}).catch(setPlayError);
+  }
+  document.querySelector('#start').addEventListener('click',resetLesson);document.querySelector('#again').addEventListener('click',resetLesson);hear.addEventListener('click',repeat);
+  micBtn.addEventListener('click',()=>{if(!manualRetry||!active||!holding)return;manualRetry=false;micBtn.classList.remove('retry');listeningWanted=true;startAutoListening();});
+  video.addEventListener('timeupdate',()=>{const t=video.currentTime||0;timeEl.textContent=`${fmt(t)} / 1:00`;progress.style.width=Math.min(100,t/60*100)+'%';if(!active&&!activeGroup&&!holding){const next=groups.find(g=>!g.afterEnd&&!finishedGroups.has(g.id)&&t>=g.at);if(next)showGroup(next);}});
+  video.addEventListener('waiting',()=>{if(started&&!active&&!holding)stateEl.textContent='LOADING';});video.addEventListener('playing',()=>{if(started&&!active&&!holding)stateEl.textContent='WATCH';});video.addEventListener('error',()=>{if(started)setPlayError();});
+  video.addEventListener('ended',()=>{activityEnded=true;if(active||holding)return;const final=groups.find(g=>g.afterEnd&&!finishedGroups.has(g.id));if(final)showGroup(final);else showFinish();});
+  window.addEventListener('pagehide',releaseMic);
+  try{video.load();}catch(e){}
+})();
+</script>
+</body>
+</html>
