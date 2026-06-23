@@ -1,0 +1,9 @@
+{
+  "name": "林律英文小冒險｜第1集",
+  "short_name": "英文小冒險",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fffaf1",
+  "theme_color": "#ffc64d",
+  "lang": "zh-Hant"
+}
