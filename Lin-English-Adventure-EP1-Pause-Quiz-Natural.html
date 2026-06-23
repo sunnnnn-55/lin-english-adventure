@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#ffd55c" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Lin's English Adventure" />
+  <title>Lin's English Adventure | Episode 1</title>
+  <style>
+    :root{--ink:#242038;--paper:#fffdf7;--cream:#fff4cf;--gold:#ffc94d;--orange:#ff8a5a;--green:#54bf83;--red:#f26f68;--muted:#7a7288;--shade:0 16px 36px rgba(42,27,45,.18)}
+    *{box-sizing:border-box} html,body{min-height:100%;margin:0;background:radial-gradient(circle at 50% -5%,#fff0aa,#fff9ea 39%,#fff 100%);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Rounded","Arial Rounded MT Bold",sans-serif;color:var(--ink)}
+    button{font:inherit;border:0;-webkit-tap-highlight-color:transparent;cursor:pointer}.app{width:min(100%,560px);margin:0 auto;min-height:100svh;padding:16px 14px 28px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:3px 2px 13px}.brand{display:flex;align-items:center;gap:10px}.brandmark{width:45px;height:45px;display:grid;place-items:center;border-radius:17px;background:linear-gradient(145deg,#fff6bd,#ffc43d);box-shadow:0 8px 17px rgba(189,123,14,.18);font-size:25px}.brand h1{margin:0;font-size:19px;line-height:1.05;letter-spacing:.2px}.brand p{margin:4px 0 0;font-size:11px;font-weight:900;color:#7f7289;letter-spacing:.8px}.score{min-width:89px;padding:8px 12px;border:2px solid #ffe2a2;border-radius:18px;background:#fff;text-align:center;font-weight:1000;box-shadow:0 8px 18px rgba(88,47,11,.08)}.score b{color:#f08d16;font-size:20px}.stage{position:relative;overflow:hidden;border-radius:30px;background:#201924;box-shadow:var(--shade);aspect-ratio:9/16}.stage video{display:block;width:100%;height:100%;object-fit:cover;background:#201924}.hud{position:absolute;top:12px;left:12px;right:12px;z-index:5;display:flex;justify-content:space-between;pointer-events:none}.pill{padding:7px 10px;border-radius:999px;background:rgba(35,22,38,.5);backdrop-filter:blur(8px);color:#fff;font-size:12px;font-weight:1000;letter-spacing:.2px}.intro,.finish,.quiz{position:absolute;z-index:8;inset:0;display:flex;align-items:center;justify-content:center;padding:18px;text-align:center;background:linear-gradient(180deg,rgba(27,17,29,.08),rgba(27,17,29,.73))}.card{width:100%;padding:24px 19px;border-radius:28px;background:rgba(255,255,255,.96);box-shadow:0 16px 34px rgba(0,0,0,.22)}.intro .big{font-size:45px;line-height:1}.card h2{margin:10px 0 7px;font-size:28px;letter-spacing:-.4px}.card p{margin:0 0 17px;color:#71677b;font-weight:750;line-height:1.52}.start{width:100%;padding:16px;border-radius:18px;color:#fff;background:linear-gradient(135deg,var(--gold),var(--orange));font-size:19px;font-weight:1000;box-shadow:0 9px 19px rgba(246,126,65,.33)}.tiny{margin-top:10px!important;font-size:11px!important;color:#92859c!important}.hidden{display:none!important}.quiz{align-items:flex-end;padding:12px;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(24,15,25,.58))}.quiz .card{padding:18px 14px 16px;border-radius:27px 27px 20px 20px}.quiz .eyebrow{margin:0 0 5px;color:#ec8a1f;font-size:11px;letter-spacing:1px;font-weight:1000}.quiz h2{font-size:25px;margin:1px 0 13px}.hear{display:inline-flex;align-items:center;justify-content:center;margin:0 0 13px;padding:10px 13px;border-radius:14px;background:#f5eaff;color:#6e459d;font-size:14px;font-weight:1000}.choices{display:grid;grid-template-columns:1fr;gap:9px}.choice{min-height:56px;border:3px solid #f4eee1;border-radius:17px;background:#fff;color:#2d2840;font-weight:1000;font-size:21px;letter-spacing:1.1px;box-shadow:0 6px 0 rgba(48,35,54,.09)}.choice:active{transform:translateY(3px);box-shadow:0 3px 0 rgba(48,35,54,.09)}.choice.good{border-color:#70ca94;background:#edfae9;color:#217a47}.choice.bad{border-color:#ff9a86;background:#fff0ec;color:#bd4c42}.feedback{height:20px;margin:10px 0 0;color:#6e6378;font-size:14px;font-weight:900}.panel{margin-top:13px;border-radius:24px;background:#fff;padding:16px;box-shadow:0 10px 23px rgba(67,43,30,.08)}.panel .label{margin:0;color:#ef8d1e;font-size:11px;font-weight:1000;letter-spacing:.8px}.panel h3{margin:4px 0 6px;font-size:21px}.panel p{margin:0;color:#766d80;font-size:14px;line-height:1.48;font-weight:700}.bar{height:9px;overflow:hidden;border-radius:999px;background:#f3e9d4;margin-top:13px}.bar span{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,#ffc94d,#ff8a5a);transition:width .2s linear}.word-row{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-top:12px}.word-row span{padding:7px 9px;border-radius:999px;background:#fff2d4;color:#9b6416;font-size:11px;font-weight:1000;letter-spacing:.4px}.note{margin:12px 8px 0;text-align:center;color:#968aa0;font-size:11px;line-height:1.45}@keyframes pop{0%{transform:scale(.6);opacity:0}55%{transform:scale(1.14);opacity:1}100%{transform:scale(1);opacity:1}}.starburst{position:absolute;z-index:12;font-size:44px;pointer-events:none;animation:pop .62s ease-out forwards}@media (min-width:590px){body{padding:20px}.app{border-radius:34px;background:#fffdf8;box-shadow:0 24px 58px rgba(87,53,16,.18)}.stage{border-radius:34px}}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="top">
+      <div class="brand"><div class="brandmark">★</div><div><h1>LIN'S ENGLISH<br>ADVENTURE</h1><p>EPISODE 1 · LISTEN & CHOOSE</p></div></div>
+      <div class="score">★ <b id="score">0</b></div>
+    </header>
+
+    <section class="stage" id="stage">
+      <video id="video" playsinline preload="auto">
+        <source src="https://github.com/sunnnnn-55/lin-english-adventure/releases/download/v1.0.0-ep1/EP1_60.MP4" type="video/mp4">
+        Your device cannot play this video.
+      </video>
+      <div class="hud"><span class="pill" id="state">READY</span><span class="pill" id="time">0:00 / 1:00</span></div>
+
+      <div class="intro" id="intro"><div class="card"><div class="big">★</div><h2>Listen. Choose. Learn.</h2><p>Watch a little. The video will stop. Then choose the English word you hear.</p><button class="start" id="start">START EPISODE 1 ▶</button><p class="tiny">Use sound for the best experience.</p></div></div>
+
+      <div class="quiz hidden" id="quiz"><div class="card"><p class="eyebrow" id="quizNo">LISTEN CAREFULLY</p><h2 id="question">Which word is HELLO?</h2><button class="hear" id="hear">🔊 HEAR AGAIN</button><div class="choices" id="choices"></div><p class="feedback" id="feedback"></p></div></div>
+
+      <div class="finish hidden" id="finish"><div class="card"><div class="big">★</div><h2>Great job!</h2><p id="summary">You finished Episode 1.</p><button class="start" id="again">PLAY AGAIN ▶</button></div></div>
+    </section>
+
+    <section class="panel">
+      <p class="label">PAUSE QUIZ MODE</p>
+      <h3 id="panelTitle">Press START.</h3>
+      <p id="panelText">The video pauses at every English word. Choose the correct word to continue.</p>
+      <div class="bar"><span id="progress"></span></div>
+      <div class="word-row"><span>HELLO</span><span>APPLE</span><span>BANANA</span><span>ORANGE</span><span>DOG</span><span>BIRD</span><span>BUTTERFLY</span></div>
+    </section>
+    <p class="note">English questions and answers use your iPhone's English voice. No recording is required.</p>
+  </main>
+
+<script>
+(() => {
+  const VIDEO_URL = 'https://github.com/sunnnnn-55/lin-english-adventure/releases/download/v1.0.0-ep1/EP1_60.MP4';
+  const video = document.querySelector('#video');
+  const intro = document.querySelector('#intro');
+  const quiz = document.querySelector('#quiz');
+  const finish = document.querySelector('#finish');
+  const scoreEl = document.querySelector('#score');
+  const stateEl = document.querySelector('#state');
+  const timeEl = document.querySelector('#time');
+  const questionEl = document.querySelector('#question');
+  const quizNo = document.querySelector('#quizNo');
+  const choicesEl = document.querySelector('#choices');
+  const feedbackEl = document.querySelector('#feedback');
+  const panelTitle = document.querySelector('#panelTitle');
+  const panelText = document.querySelector('#panelText');
+  const progress = document.querySelector('#progress');
+  const summary = document.querySelector('#summary');
+  const stage = document.querySelector('#stage');
+  let score = 0, active = null, answered = new Set(), voice = null;
+
+  const tasks = [
+    {id:'hello', at:12.0, word:'HELLO', say:'Hello', choices:['HELLO','GOOD JOB','SEE YOU NEXT TIME']},
+    {id:'apple', at:21.0, word:'APPLE', say:'Apple', choices:['APPLE','BANANA','ORANGE']},
+    {id:'banana', at:24.0, word:'BANANA', say:'Banana', choices:['APPLE','BANANA','ORANGE']},
+    {id:'orange', at:27.0, word:'ORANGE', say:'Orange', choices:['APPLE','BANANA','ORANGE']},
+    {id:'dog', at:36.5, word:'DOG', say:'Dog', choices:['DOG','BIRD','BUTTERFLY']},
+    {id:'bird', at:38.0, word:'BIRD', say:'Bird', choices:['DOG','BIRD','BUTTERFLY']},
+    {id:'butterfly', at:39.5, word:'BUTTERFLY', say:'Butterfly', choices:['DOG','BIRD','BUTTERFLY']},
+    {id:'goodjob', at:51.0, word:'GOOD JOB', say:'Good job', choices:['HELLO','GOOD JOB','SEE YOU NEXT TIME']},
+    {id:'seeyou', at:58.0, word:'SEE YOU NEXT TIME', say:'See you next time', choices:['HELLO','GOOD JOB','SEE YOU NEXT TIME']}
+  ];
+
+  function getVoice(){
+    const voices = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+    const US = voices.filter(v => /^en-US/i.test(v.lang));
+    const preferred = [/Ava/i,/Samantha/i,/Allison/i,/Karen/i,/Jenny/i,/Aria/i,/Zira/i,/Nicky/i];
+    return preferred.map(rule => US.find(v => rule.test(v.name))).find(Boolean) || US.find(v => v.localService) || US[0] || voices.find(v => /^en/i.test(v.lang)) || null;
+  }
+  function refreshVoice(){ voice = getVoice(); }
+  if ('speechSynthesis' in window) { refreshVoice(); speechSynthesis.onvoiceschanged = refreshVoice; }
+  function speak(text, done){
+    if (!('speechSynthesis' in window)) { if(done) done(); return; }
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US';
+    u.rate = .78;
+    u.pitch = 1.05;
+    if (voice) u.voice = voice;
+    u.onend = () => done && done();
+    u.onerror = () => done && done();
+    speechSynthesis.speak(u);
+  }
+  function shuffle(list){ return [...list].sort(() => Math.random() - .5); }
+  function fmtTime(sec){ return `${Math.floor(sec/60)}:${String(Math.floor(sec%60)).padStart(2,'0')}`; }
+  function burst(){
+    const s = document.createElement('div'); s.className='starburst'; s.textContent='★';
+    s.style.left = `${45 + Math.random()*10}%`; s.style.top = `${43 + Math.random()*14}%`;
+    stage.appendChild(s); setTimeout(()=>s.remove(),700);
+  }
+  function showTask(task){
+    active = task; video.pause(); quiz.classList.remove('hidden');
+    quizNo.textContent = `WORD ${answered.size + 1} OF ${tasks.length}`;
+    questionEl.textContent = `Which word is ${task.word}?`;
+    feedbackEl.textContent = '';
+    choicesEl.innerHTML = '';
+    shuffle(task.choices).forEach(word => {
+      const b = document.createElement('button'); b.className='choice'; b.textContent=word;
+      b.addEventListener('click', () => answer(word, b)); choicesEl.appendChild(b);
+    });
+    stateEl.textContent = 'LISTEN';
+    panelTitle.textContent = 'Listen and choose.';
+    panelText.textContent = 'Choose the English word you hear.';
+    setTimeout(() => speak(`Which word is ${task.say}?`), 140);
+  }
+  function answer(word, button){
+    if(!active) return;
+    if(word === active.word){
+      document.querySelectorAll('.choice').forEach(b=>b.disabled=true);
+      button.classList.add('good'); feedbackEl.textContent='Great job!'; score++; scoreEl.textContent=score; burst();
+      const completed = active; answered.add(completed.id); active=null;
+      speak(`Great job! ${completed.say}.`, () => {
+        setTimeout(() => { quiz.classList.add('hidden'); stateEl.textContent='WATCH'; panelTitle.textContent='Keep watching.'; panelText.textContent='The next English word is coming soon.'; video.play().catch(()=>{}); }, 400);
+      });
+    } else {
+      button.classList.add('bad'); feedbackEl.textContent='Try again.';
+      speak(`Try again. Which word is ${active.say}?`);
+      setTimeout(()=>button.classList.remove('bad'),420);
+    }
+  }
+  function repeatQuestion(){ if(active) speak(`Which word is ${active.say}?`); }
+  function start(){
+    score=0; scoreEl.textContent='0'; answered = new Set(); active=null;
+    if ('speechSynthesis' in window) speechSynthesis.cancel();
+    finish.classList.add('hidden'); quiz.classList.add('hidden'); intro.classList.add('hidden');
+    video.src = VIDEO_URL; video.currentTime=0; stateEl.textContent='WATCH';
+    panelTitle.textContent='Keep watching.'; panelText.textContent='The video will stop at every English word.';
+    video.play().catch(()=>{intro.classList.remove('hidden');});
+  }
+  document.querySelector('#start').addEventListener('click', start);
+  document.querySelector('#again').addEventListener('click', start);
+  document.querySelector('#hear').addEventListener('click', repeatQuestion);
+  video.addEventListener('timeupdate', ()=>{
+    const t = video.currentTime; timeEl.textContent = `${fmtTime(t)} / 1:00`; progress.style.width = `${Math.min(100,t/60*100)}%`;
+    if(!active){ const next = tasks.find(task => !answered.has(task.id) && t >= task.at); if(next) showTask(next); }
+  });
+  video.addEventListener('ended', ()=>{
+    if ('speechSynthesis' in window) speechSynthesis.cancel();
+    finish.classList.remove('hidden'); stateEl.textContent='DONE';
+    summary.textContent = `You got ${score} stars.`;
+    panelTitle.textContent='Episode complete!'; panelText.textContent='Great listening today.';
+    speak('Great job! See you next time!');
+  });
+})();
+</script>
+</body>
+</html>
