@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Lin's English Adventure EP1 · Original Timing</title>
+<style>
+  :root{
+    --bg:#faf7ea; --ink:#2c2850; --muted:#6b6789; --gold:#f0bf55; --panel:rgba(255,255,255,.92);
+    --navy:rgba(27,20,61,.88); --radius:28px; --shadow:0 14px 40px rgba(31,24,63,.15);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;color:var(--ink)}
+  body{padding:16px 14px 28px;}
+  .app{max-width:560px;margin:0 auto}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo{width:52px;height:52px;border-radius:18px;background:linear-gradient(180deg,#ffe98f,#efc85e);display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:var(--shadow)}
+  h1{margin:0;font-size:18px;line-height:1.08;letter-spacing:.04em;font-weight:900;text-transform:uppercase}
+  .sub{font-size:12px;font-weight:800;color:#756f96;letter-spacing:.12em;text-transform:uppercase;margin-top:4px}
+  .score{min-width:120px;padding:14px 18px;border-radius:24px;background:#fff;border:3px solid #f2dca8;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:var(--shadow);font-size:18px;font-weight:900}
+  .card{position:relative;border-radius:34px;overflow:hidden;background:#151127;box-shadow:var(--shadow)}
+  .stage{position:relative;aspect-ratio:512/910;background:#000}
+  video{display:block;width:100%;height:100%;object-fit:contain;background:#000}
+  svg.overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .hudpill,.timepill,.promptpill{position:absolute;z-index:7;background:rgba(58,71,122,.84);color:#fff;border-radius:999px;padding:11px 18px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;backdrop-filter:blur(4px);box-shadow:0 10px 24px rgba(0,0,0,.18)}
+  .hudpill{left:16px;top:16px;font-size:17px}
+  .timepill{right:16px;top:16px;font-size:17px}
+  .promptpill{left:50%;transform:translateX(-50%);top:88px;background:rgba(255,255,255,.92);color:var(--ink);display:none;align-items:center;gap:10px;font-size:18px;padding:14px 20px;max-width:80%;text-align:center}
+  .promptpill.show{display:flex}
+  .promptpill .micdot{width:30px;height:30px;border-radius:50%;background:#efe9ff;display:flex;align-items:center;justify-content:center;font-size:18px}
+  .tap-layer{position:absolute;inset:0;z-index:6;display:none}
+  .tap-layer.active{display:block}
+  .hotspot{position:absolute;background:transparent;border:0;cursor:pointer}
+  .status{padding:14px 6px 4px;text-align:center;color:#7d7895;font-size:12px;font-weight:700;letter-spacing:.02em}
+  .progress{height:12px;border-radius:999px;background:#e8e0c6;margin:14px 0 14px;overflow:hidden}
+  .bar{height:100%;width:0%;background:linear-gradient(90deg,#efc85e,#e99a58);border-radius:999px}
+  .helper{background:rgba(255,255,255,.7);border:1px solid #efe5c3;border-radius:24px;padding:16px 16px 18px;text-align:center;box-shadow:0 10px 24px rgba(0,0,0,.05)}
+  .helper h2{margin:0 0 8px;font-size:18px}
+  .helper p{margin:0;color:var(--muted);font-weight:700}
+  .startscreen,.speechsheet,.toast{position:absolute;inset:0;z-index:12;display:flex;align-items:center;justify-content:center;padding:24px}
+  .glass{width:min(90%,420px);background:var(--panel);backdrop-filter:blur(10px);border-radius:36px;box-shadow:var(--shadow);padding:24px 22px;text-align:center}
+  .glass h3{margin:8px 0 10px;font-size:20px;line-height:1.15}
+  .glass p{margin:0;color:var(--muted);font-weight:700;line-height:1.45}
+  .bigbtn,.smallbtn,.micbtn{border:0;cursor:pointer;font:inherit}
+  .bigbtn{margin-top:18px;width:100%;padding:16px 18px;border-radius:18px;background:linear-gradient(90deg,#f1c95e,#ec9a61);color:#fff;font-size:18px;font-weight:900;box-shadow:var(--shadow)}
+  .smallrow{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+  .smallbtn{padding:12px 16px;border-radius:14px;background:#ece8f8;color:var(--ink);font-weight:800}
+  .speechsheet{display:none;background:rgba(10,8,24,.12)}
+  .speechsheet.show{display:flex}
+  .speechcard{width:min(92%,430px);background:rgba(28,22,61,.88);color:#fff;border-radius:28px;padding:20px 18px 24px;box-shadow:0 16px 44px rgba(0,0,0,.24);text-align:center}
+  .speechlabel{font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#f0d170;margin-bottom:8px}
+  .speechtitle{font-size:28px;font-weight:900;margin:0 0 6px}
+  .speechhint{font-size:17px;line-height:1.35;color:rgba(255,255,255,.92);font-weight:800}
+  .speechhint small{display:block;color:rgba(255,255,255,.75);font-weight:700;margin-top:8px}
+  .micbtn{width:92px;height:92px;border-radius:50%;margin:18px auto 14px;background:linear-gradient(180deg,#ffe98e,#f1c05a);color:#352e56;font-size:40px;font-weight:900;display:flex;align-items:center;justify-content:center;box-shadow:0 16px 30px rgba(0,0,0,.22)}
+  .micbtn.busy{animation:pulse 1s infinite}
+  .stars2{display:flex;justify-content:center;gap:10px;font-size:28px;margin:10px 0 4px}
+  .stars2 span{opacity:.28}
+  .stars2 span.on{opacity:1}
+  .toast{display:none;pointer-events:none}
+  .toast.show{display:flex}
+  .toastbox{padding:16px 20px;border-radius:20px;background:rgba(255,255,255,.94);box-shadow:var(--shadow);font-weight:900;color:var(--ink);font-size:22px}
+  @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div class="brand">
+      <div class="logo">⭐</div>
+      <div>
+        <h1>Lin's English<br>Adventure</h1>
+        <div class="sub">Episode 1 · Find · Tap · Speak</div>
+      </div>
+    </div>
+    <div class="score"><span>★</span><span id="score">0</span></div>
+  </div>
+
+  <div class="card">
+    <div class="stage" id="stage">
+      <video id="video" playsinline preload="auto" webkit-playsinline>
+        <source src="https://github.com/sunnnnn-55/lin-english-adventure/releases/download/v1.0.0-ep1/EP1_60.MP4" type="video/mp4">
+      </video>
+      <svg class="overlay" viewBox="0 0 512 910" aria-hidden="true"></svg>
+      <div class="hudpill" id="modePill">Watch</div>
+      <div class="timepill" id="timePill">0:00 / 1:00</div>
+      <div class="promptpill" id="promptPill"><span class="micdot">🔊</span><span id="promptText">Start</span></div>
+      <div class="tap-layer" id="tapLayer"></div>
+
+      <div class="startscreen" id="startScreen">
+        <div class="glass">
+          <div style="font-size:42px">⭐</div>
+          <h3>Watch. Tap. Say it.</h3>
+          <p>Watch. Tap the right picture. Say the word once.</p>
+          <button class="bigbtn" id="startBtn">Start ▶</button>
+          <div class="smallrow">
+            <button class="smallbtn" id="pickVideoBtn">Choose video</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="speechsheet" id="speechSheet">
+        <div class="speechcard">
+          <div class="speechlabel">Your turn</div>
+          <div class="speechtitle" id="speechWord">APPLE</div>
+          <div class="stars2"><span id="micStar">★</span></div>
+          <button class="micbtn" id="micBtn" aria-label="Tap to speak">🎤</button>
+          <div class="speechhint" id="speechHint">Say APPLE.<small>Tap the microphone.</small></div>
+          <div class="smallrow">
+            <button class="smallbtn" id="hearAgainBtn">Hear again</button>
+            <button class="smallbtn" id="skipSpeechBtn">Continue</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="toast" id="toast"><div class="toastbox" id="toastText">Great job!</div></div>
+    </div>
+  </div>
+
+  <div class="progress"><div class="bar" id="bar"></div></div>
+  <div class="helper"><h2 id="helperTitle">Ready to play</h2><p id="helperText">Start. When you see a word, touch the correct thing in the video.</p></div>
+</div>
+<input type="file" id="videoPicker" accept="video/mp4" style="display:none" />
+<script>
+(()=>{
+  const video = document.getElementById('video');
+  const scoreEl = document.getElementById('score');
+  const modePill = document.getElementById('modePill');
+  const timePill = document.getElementById('timePill');
+  const promptPill = document.getElementById('promptPill');
+  const promptText = document.getElementById('promptText');
+  const tapLayer = document.getElementById('tapLayer');
+  const startScreen = document.getElementById('startScreen');
+  const startBtn = document.getElementById('startBtn');
+  const bar = document.getElementById('bar');
+  const helperTitle = document.getElementById('helperTitle');
+  const helperText = document.getElementById('helperText');
+  const speechSheet = document.getElementById('speechSheet');
+  const speechWord = document.getElementById('speechWord');
+  const speechHint = document.getElementById('speechHint');
+  const micBtn = document.getElementById('micBtn');
+  const micStar = document.getElementById('micStar');
+  const hearAgainBtn = document.getElementById('hearAgainBtn');
+  const skipSpeechBtn = document.getElementById('skipSpeechBtn');
+  const toast = document.getElementById('toast');
+  const toastText = document.getElementById('toastText');
+  const pickVideoBtn = document.getElementById('pickVideoBtn');
+  const videoPicker = document.getElementById('videoPicker');
+
+  // Fixed frames are measured from the re-uploaded original EP1 MP4 (512×910, 30fps).
+  // The player always seeks back to freezeAt before showing a question, so a late video event cannot show the next scene.
+  const tasks = [
+    { id:'hello', word:'HELLO', freezeAt:15.00, triggerAt:15.00, tapPrompt:'Find HELLO', sayPrompt:'Say HELLO.', areas:[
+      {x:42, y:25, w:430, h:308}
+    ], aliases:['hello','helo','hallo']},
+    { id:'apple', word:'APPLE', freezeAt:22.10, triggerAt:22.10, tapPrompt:'Find APPLE', sayPrompt:'Say APPLE.', areas:[
+      {x:45, y:52, w:205, h:282},
+      {x:15, y:298, w:142, h:195}
+    ], aliases:['apple','apples']},
+    { id:'banana', word:'BANANA', freezeAt:24.00, triggerAt:24.00, tapPrompt:'Find BANANA', sayPrompt:'Say BANANA.', areas:[
+      {x:254, y:48, w:196, h:288},
+      {x:330, y:292, w:150, h:200}
+    ], aliases:['banana','bananas','bananna']},
+    { id:'orange', word:'ORANGE', freezeAt:28.50, triggerAt:28.50, tapPrompt:'Find ORANGE', sayPrompt:'Say ORANGE.', areas:[
+      {x:34, y:86, w:154, h:175},
+      {x:148, y:535, w:312, h:310}
+    ], aliases:['orange','oranges']},
+    { id:'dog', word:'DOG', freezeAt:36.20, triggerAt:36.20, tapPrompt:'Find DOG', sayPrompt:'Say DOG.', areas:[
+      {x:270, y:10, w:190, h:310},
+      {x:0, y:670, w:160, h:238}
+    ], aliases:['dog','dogs','dock','doc']},
+    { id:'bird', word:'BIRD', freezeAt:37.70, triggerAt:37.70, tapPrompt:'Find BIRD', sayPrompt:'Say BIRD.', areas:[
+      {x:286, y:245, w:186, h:250},
+      {x:150, y:10, w:170, h:155}
+    ], aliases:['bird','birds','bert']},
+    { id:'butterfly', word:'BUTTERFLY', freezeAt:39.20, triggerAt:39.20, tapPrompt:'Find BUTTERFLY', sayPrompt:'Say BUTTERFLY.', areas:[
+      {x:272, y:466, w:198, h:258},
+      {x:330, y:662, w:182, h:248}
+    ], aliases:['butterfly','butterflies','butter fly']},
+    { id:'goodjob', word:'GOOD JOB', freezeAt:52.00, triggerAt:52.00, tapPrompt:'Find GOOD JOB', sayPrompt:'Say GOOD JOB.', areas:[
+      {x:62, y:100, w:386, h:355}
+    ], aliases:['good job','goodjob','good jobs']},
+    { id:'seeyou', word:'SEE YOU NEXT TIME', freezeAt:57.30, triggerAt:57.30, tapPrompt:'Find SEE YOU', sayPrompt:'Say SEE YOU.', areas:[
+      {x:150, y:505, w:350, h:370}
+    ], aliases:['see you','see you next time','see ya','see ya next time']}
+  ];
+
+  let state = {
+    started:false, score:0, taskIndex:0, pausedForTask:false, activeTask:null,
+    recognition:null, recognizing:false, selectedVoice:null, usingLocalFile:false
+  };
+
+  function chooseVoice(){
+    const voices = speechSynthesis.getVoices ? speechSynthesis.getVoices() : [];
+    const preferred = voices.find(v => /Samantha|Ava|Allison|Siri|Karen/i.test(v.name) && /^en/i.test(v.lang))
+      || voices.find(v => /^en-US/i.test(v.lang))
+      || voices.find(v => /^en/i.test(v.lang));
+    state.selectedVoice = preferred || null;
+  }
+  chooseVoice();
+  if (window.speechSynthesis) speechSynthesis.onvoiceschanged = chooseVoice;
+
+  function fmt(t){
+    t = Math.max(0, Math.floor(t||0));
+    const m = Math.floor(t/60), s = t%60;
+    return `${m}:${String(s).padStart(2,'0')}`;
+  }
+  function updateTime(){
+    timePill.textContent = `${fmt(video.currentTime)} / 1:00`;
+    bar.style.width = `${Math.min(100, (video.currentTime/60)*100)}%`;
+  }
+  function setMode(label){ modePill.textContent = label; }
+  function setHelper(title,text){ helperTitle.textContent = title; helperText.textContent = text; }
+  function setPrompt(text,show=true){ promptText.textContent = text; promptPill.classList.toggle('show', show); }
+  function ding(){
+    try{
+      const ctx = new (window.AudioContext||window.webkitAudioContext)();
+      const now = ctx.currentTime;
+      const o1 = ctx.createOscillator(), o2 = ctx.createOscillator(), g = ctx.createGain();
+      o1.type='sine'; o2.type='triangle'; o1.frequency.setValueAtTime(880,now); o2.frequency.setValueAtTime(1320,now+0.03);
+      g.gain.setValueAtTime(0.001,now); g.gain.exponentialRampToValueAtTime(0.18,now+0.02); g.gain.exponentialRampToValueAtTime(0.001,now+0.38);
+      o1.connect(g); o2.connect(g); g.connect(ctx.destination); o1.start(now); o2.start(now+0.03); o1.stop(now+0.4); o2.stop(now+0.4);
+    }catch(e){}
+  }
+  function speak(text, onend){
+    if (!window.speechSynthesis) { onend && onend(); return; }
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang='en-US'; u.rate=0.74; u.pitch=1.0; u.volume=1;
+    if (state.selectedVoice) u.voice = state.selectedVoice;
+    u.onend = ()=> onend && onend();
+    speechSynthesis.speak(u);
+  }
+  function showToast(text, ms=900){
+    toastText.textContent=text; toast.classList.add('show');
+    setTimeout(()=>toast.classList.remove('show'), ms);
+  }
+  function updateScore(){ scoreEl.textContent = state.score; }
+  function areaStyle(a){
+    return `left:${(a.x/512)*100}%;top:${(a.y/910)*100}%;width:${(a.w/512)*100}%;height:${(a.h/910)*100}%;`;
+  }
+  function clearHotspots(){ tapLayer.innerHTML=''; tapLayer.classList.remove('active'); }
+  function buildHotspots(task){
+    clearHotspots();
+    task.areas.forEach((a, idx)=>{
+      const btn = document.createElement('button');
+      btn.className = 'hotspot';
+      btn.setAttribute('aria-label', task.word + ' target ' + (idx+1));
+      btn.style.cssText = areaStyle(a);
+      btn.addEventListener('click', ()=>handleCorrectTap(task));
+      tapLayer.appendChild(btn);
+    });
+    tapLayer.classList.add('active');
+  }
+  function normalize(s){
+    return (s||'').toLowerCase().replace(/[^a-z\s]/g,' ').replace(/\s+/g,' ').trim();
+  }
+  function heardTarget(text, task){
+    const n = normalize(text);
+    return task.aliases.some(a => n.includes(a));
+  }
+  function pauseForTask(task){
+    state.pausedForTask = true; state.activeTask = task;
+    clearHotspots();
+    setPrompt('', false);
+    video.pause();
+    // Force the exact measured frame before showing the hidden hotspot. This prevents a delayed
+    // timeupdate from leaving APPLE/BANANA on the following ORANGE scene.
+    const reveal = ()=>{
+      setMode('Listen');
+      buildHotspots(task);
+      setPrompt(task.tapPrompt, true);
+      setHelper('Find it', `Tap ${task.word}.`);
+    };
+    const now = Number(video.currentTime || 0);
+    if (Math.abs(now - task.freezeAt) > 0.06) {
+      const onSeek = ()=>{ video.removeEventListener('seeked', onSeek); requestAnimationFrame(reveal); };
+      video.addEventListener('seeked', onSeek);
+      try { video.currentTime = task.freezeAt; } catch(e) { reveal(); }
+      setTimeout(()=>{ if (!tapLayer.classList.contains('active')) reveal(); }, 900);
+    } else {
+      requestAnimationFrame(reveal);
+    }
+  }
+  function handleCorrectTap(task){
+    clearHotspots(); setPrompt('', false); ding();
+    showToast(`Good! ${task.word}`);
+    openSpeech(task);
+  }
+  function openSpeech(task){
+    setMode('Say it');
+    speechWord.textContent = task.word;
+    speechHint.innerHTML = `${task.sayPrompt}<small>Tap the microphone.</small>`;
+    micStar.classList.remove('on');
+    speechSheet.classList.add('show');
+    setHelper('Say it', `Say ${task.word}.`);
+    // One short, slow prompt only.
+    speak(`Say ${task.word}.`, ()=>{});
+  }
+  function closeSpeech(){
+    speechSheet.classList.remove('show');
+    micBtn.classList.remove('busy');
+  }
+  function nextTask(){
+    state.score += 1; updateScore();
+    state.taskIndex += 1; state.pausedForTask = false; state.activeTask = null;
+    closeSpeech();
+    setPrompt('', false);
+    setMode('Watch');
+    setHelper('Keep going', 'Watch the next part. When the video pauses, tap the correct thing.');
+    try{ video.playbackRate=1; }catch(e){} setTimeout(()=>{ video.play().catch(()=>{}); }, 280);
+  }
+
+  function startRecognition(){
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR){
+      speak('Speech input is not available on this device.', ()=>{});
+      setHelper('Speech not available', 'This browser cannot use microphone speech input.');
+      return;
+    }
+    if (state.recognizing) return;
+    const task = state.activeTask;
+    if (!task) return;
+    if (window.speechSynthesis) speechSynthesis.cancel();
+    let recog = new SR();
+    state.recognition = recog;
+    state.recognizing = true;
+    micBtn.classList.add('busy');
+    speechHint.innerHTML = `Listening...<small>Say ${task.word}.</small>`;
+    try{
+      recog.lang = 'en-US';
+      recog.interimResults = true;
+      recog.continuous = false;
+      recog.maxAlternatives = 5;
+    }catch(e){}
+    let matched = false;
+    let fallbackTimer = setTimeout(()=>{
+      if (!matched && state.recognizing){
+        speechHint.innerHTML = `I didn't catch it yet. Say ${task.word} again, or tap the microphone again.<small>Example: \"${task.word}\"</small>`;
+      }
+    }, 3500);
+    recog.onresult = (ev)=>{
+      let joined = '';
+      for(let i=ev.resultIndex; i<ev.results.length; i++){
+        joined += ' ' + ev.results[i][0].transcript;
+      }
+      if (heardTarget(joined, task)){
+        matched = true;
+        clearTimeout(fallbackTimer);
+        try{recog.stop();}catch(e){}
+        micStar.classList.add('on');
+        ding();
+        speechHint.innerHTML = `Great!<small>${task.word}</small>`;
+        showToast(`⭐ ${task.word}`);
+        state.recognizing = false;
+        micBtn.classList.remove('busy');
+        setTimeout(nextTask, 650);
+      }
+    };
+    recog.onerror = ()=>{
+      clearTimeout(fallbackTimer);
+      state.recognizing = false;
+      micBtn.classList.remove('busy');
+      speechHint.innerHTML = `${task.sayPrompt}<small>Tap the microphone.</small>`;
+    };
+    recog.onend = ()=>{
+      clearTimeout(fallbackTimer);
+      if (!matched){
+        state.recognizing = false;
+        micBtn.classList.remove('busy');
+      }
+    };
+    try{recog.start();}catch(e){
+      state.recognizing = false;
+      micBtn.classList.remove('busy');
+      speechHint.innerHTML = `${task.sayPrompt}<small>Tap the microphone.</small>`;
+    }
+  }
+
+  function maybePauseForUpcomingTask(){
+    if (!state.started || state.pausedForTask) return;
+    const task = tasks[state.taskIndex];
+    if (!task) return;
+    if (video.currentTime >= task.triggerAt){
+      pauseForTask(task);
+    }
+  }
+
+  video.addEventListener('timeupdate', ()=>{ updateTime(); maybePauseForUpcomingTask(); });
+  function frameCheck(){
+    updateTime();
+    maybePauseForUpcomingTask();
+    requestAnimationFrame(frameCheck);
+  }
+  requestAnimationFrame(frameCheck);
+  video.addEventListener('loadedmetadata', updateTime);
+  video.addEventListener('ended', ()=>{ setMode('Done'); setPrompt('', false); setHelper('Finished', 'Episode complete. Great job!'); showToast('Episode complete!', 1400); });
+
+  startBtn.addEventListener('click', ()=>{
+    startScreen.style.display='none'; state.started=true; setMode('Watch'); setPrompt('', false); updateTime();
+    setHelper('Watch', 'Tap the right picture.');
+    video.play().catch(()=>{});
+  });
+  pickVideoBtn.addEventListener('click', ()=> videoPicker.click());
+  videoPicker.addEventListener('change', (e)=>{
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    video.src = url; video.load();
+    state.usingLocalFile = true;
+    setHelper('Video ready', 'Tap Start.');
+  });
+  micBtn.addEventListener('click', startRecognition);
+  hearAgainBtn.addEventListener('click', ()=>{ if (state.activeTask) speak(`Say ${state.activeTask.word}.`); });
+  skipSpeechBtn.addEventListener('click', ()=>{ showToast('Continueped'); nextTask(); });
+
+  updateTime(); updateScore();
+})();
+</script>
+</body>
+</html>
