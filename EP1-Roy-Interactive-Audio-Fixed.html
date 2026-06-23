@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Lin's English Adventure EP1 · Clean Timing</title>
+<style>
+  :root{
+    --bg:#faf7ea; --ink:#2c2850; --muted:#6b6789; --gold:#f0bf55; --panel:rgba(255,255,255,.92);
+    --navy:rgba(27,20,61,.88); --radius:28px; --shadow:0 14px 40px rgba(31,24,63,.15);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;color:var(--ink)}
+  body{padding:16px 14px 28px;}
+  .app{max-width:560px;margin:0 auto}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo{width:52px;height:52px;border-radius:18px;background:linear-gradient(180deg,#ffe98f,#efc85e);display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:var(--shadow)}
+  h1{margin:0;font-size:18px;line-height:1.08;letter-spacing:.04em;font-weight:900;text-transform:uppercase}
+  .sub{font-size:12px;font-weight:800;color:#756f96;letter-spacing:.12em;text-transform:uppercase;margin-top:4px}
+  .score{min-width:120px;padding:14px 18px;border-radius:24px;background:#fff;border:3px solid #f2dca8;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:var(--shadow);font-size:18px;font-weight:900}
+  .card{position:relative;border-radius:34px;overflow:hidden;background:#151127;box-shadow:var(--shadow)}
+  .stage{position:relative;aspect-ratio:512/910;background:#000}
+  video{display:block;width:100%;height:100%;object-fit:contain;background:#000}
+  svg.overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .hudpill,.timepill,.promptpill{position:absolute;z-index:7;background:rgba(58,71,122,.84);color:#fff;border-radius:999px;padding:11px 18px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;backdrop-filter:blur(4px);box-shadow:0 10px 24px rgba(0,0,0,.18)}
+  .hudpill{left:16px;top:16px;font-size:17px}
+  .timepill{right:16px;top:16px;font-size:17px}
+  .promptpill{left:50%;transform:translateX(-50%);top:72px;background:rgba(255,255,255,.94);color:var(--ink);display:none;align-items:center;gap:7px;font-size:13px;padding:8px 12px;max-width:62%;text-align:center;letter-spacing:.055em;box-shadow:0 7px 18px rgba(0,0,0,.14)}
+  .promptpill.show{display:flex}
+  .promptpill .micdot{width:20px;height:20px;border-radius:50%;background:#efe9ff;display:flex;align-items:center;justify-content:center;font-size:12px}
+  .tap-layer{position:absolute;inset:0;z-index:6;display:none}
+  .tap-layer.active{display:block}
+  .hotspot{position:absolute;background:transparent;border:0;cursor:pointer}
+  .status{padding:14px 6px 4px;text-align:center;color:#7d7895;font-size:12px;font-weight:700;letter-spacing:.02em}
+  .progress{height:12px;border-radius:999px;background:#e8e0c6;margin:14px 0 14px;overflow:hidden}
+  .bar{height:100%;width:0%;background:linear-gradient(90deg,#efc85e,#e99a58);border-radius:999px}
+  .helper{background:rgba(255,255,255,.7);border:1px solid #efe5c3;border-radius:24px;padding:16px 16px 18px;text-align:center;box-shadow:0 10px 24px rgba(0,0,0,.05)}
+  .helper h2{margin:0 0 8px;font-size:18px}
+  .helper p{margin:0;color:var(--muted);font-weight:700}
+  .startscreen,.speechsheet,.toast{position:absolute;inset:0;z-index:12;display:flex;align-items:center;justify-content:center;padding:24px}
+  .glass{width:min(90%,420px);background:var(--panel);backdrop-filter:blur(10px);border-radius:36px;box-shadow:var(--shadow);padding:24px 22px;text-align:center}
+  .glass h3{margin:8px 0 10px;font-size:20px;line-height:1.15}
+  .glass p{margin:0;color:var(--muted);font-weight:700;line-height:1.45}
+  .bigbtn,.smallbtn,.micbtn{border:0;cursor:pointer;font:inherit}
+  .bigbtn{margin-top:18px;width:100%;padding:16px 18px;border-radius:18px;background:linear-gradient(90deg,#f1c95e,#ec9a61);color:#fff;font-size:18px;font-weight:900;box-shadow:var(--shadow)}
+  .smallrow{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+  .smallbtn{padding:12px 16px;border-radius:14px;background:#ece8f8;color:var(--ink);font-weight:800}
+  .speechsheet{display:none;background:rgba(10,8,24,.12)}
+  .speechsheet.show{display:flex}
+  .speechcard{width:min(92%,430px);background:rgba(28,22,61,.88);color:#fff;border-radius:28px;padding:20px 18px 24px;box-shadow:0 16px 44px rgba(0,0,0,.24);text-align:center}
+  .speechlabel{font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#f0d170;margin-bottom:8px}
+  .speechtitle{font-size:28px;font-weight:900;margin:0 0 6px}
+  .speechhint{font-size:17px;line-height:1.35;color:rgba(255,255,255,.92);font-weight:800}
+  .speechhint small{display:block;color:rgba(255,255,255,.75);font-weight:700;margin-top:8px}
+  .micbtn{width:92px;height:92px;border-radius:50%;margin:18px auto 14px;background:linear-gradient(180deg,#ffe98e,#f1c05a);color:#352e56;font-size:40px;font-weight:900;display:flex;align-items:center;justify-content:center;box-shadow:0 16px 30px rgba(0,0,0,.22)}
+  .micbtn.busy{animation:pulse 1s infinite}
+  .micbtn:disabled{opacity:.48;filter:saturate(.65);cursor:not-allowed;box-shadow:none}
+  .stars2{display:flex;justify-content:center;gap:10px;font-size:28px;margin:10px 0 4px}
+  .stars2 span{opacity:.28}
+  .stars2 span.on{opacity:1}
+  .toast{display:none;pointer-events:none}
+  .toast.show{display:flex}
+  .toastbox{padding:16px 20px;border-radius:20px;background:rgba(255,255,255,.94);box-shadow:var(--shadow);font-weight:900;color:var(--ink);font-size:22px}
+  @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div class="brand">
+      <div class="logo">⭐</div>
+      <div>
+        <h1>Lin's English<br>Adventure</h1>
+        <div class="sub">Episode 1 · Find · Tap · Speak</div>
+      </div>
+    </div>
+    <div class="score"><span>★</span><span id="score">0</span></div>
+  </div>
+
+  <div class="card">
+    <div class="stage" id="stage">
+      <video id="video" playsinline preload="auto" webkit-playsinline volume="1">
+        <source src="EP1_60秒_含聲音_Web版.mp4" type="video/mp4">
+      </video>
+      <svg class="overlay" viewBox="0 0 512 910" aria-hidden="true"></svg>
+      <div class="hudpill" id="modePill">Watch</div>
+      <div class="timepill" id="timePill">0:00 / 1:00</div>
+      <div class="promptpill" id="promptPill"><span class="micdot">🔊</span><span id="promptText">Start</span></div>
+      <div class="tap-layer" id="tapLayer"></div>
+
+      <div class="startscreen" id="startScreen">
+        <div class="glass">
+          <div style="font-size:42px">⭐</div>
+          <h3>Watch. Wait. Tap.</h3>
+          <p>Watch the word first. Then tap the right picture. Say it once.</p>
+          <button class="bigbtn" id="startBtn">Start ▶</button>
+          <div class="smallrow">
+            <button class="smallbtn" id="pickVideoBtn">Choose video</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="speechsheet" id="speechSheet">
+        <div class="speechcard">
+          <div class="speechlabel">Your turn</div>
+          <div class="speechtitle" id="speechWord">APPLE</div>
+          <div class="stars2"><span id="micStar">★</span></div>
+          <button class="micbtn" id="micBtn" aria-label="Tap to speak">🎤</button>
+          <div class="speechhint" id="speechHint">Roy, please read APPLE aloud.<small>Tap the microphone.</small></div>
+          <div class="smallrow">
+            <button class="smallbtn" id="hearAgainBtn">Hear again</button>
+            <button class="smallbtn" id="skipSpeechBtn">Continue</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="toast" id="toast"><div class="toastbox" id="toastText">Great job!</div></div>
+    </div>
+  </div>
+
+  <div class="progress"><div class="bar" id="bar"></div></div>
+  <div class="helper"><h2 id="helperTitle">Ready to play</h2><p id="helperText">Watch first. The game waits until the word in the video is finished.</p></div>
+</div>
+<input type="file" id="videoPicker" accept="video/mp4" style="display:none" />
+<script>
+(()=>{
+  const video = document.getElementById('video');
+  const scoreEl = document.getElementById('score');
+  const modePill = document.getElementById('modePill');
+  const timePill = document.getElementById('timePill');
+  const promptPill = document.getElementById('promptPill');
+  const promptText = document.getElementById('promptText');
+  const tapLayer = document.getElementById('tapLayer');
+  const startScreen = document.getElementById('startScreen');
+  const startBtn = document.getElementById('startBtn');
+  const bar = document.getElementById('bar');
+  const helperTitle = document.getElementById('helperTitle');
+  const helperText = document.getElementById('helperText');
+  const speechSheet = document.getElementById('speechSheet');
+  const speechWord = document.getElementById('speechWord');
+  const speechHint = document.getElementById('speechHint');
+  const micBtn = document.getElementById('micBtn');
+  const micStar = document.getElementById('micStar');
+  const hearAgainBtn = document.getElementById('hearAgainBtn');
+  const skipSpeechBtn = document.getElementById('skipSpeechBtn');
+  const toast = document.getElementById('toast');
+  const toastText = document.getElementById('toastText');
+  const pickVideoBtn = document.getElementById('pickVideoBtn');
+  const videoPicker = document.getElementById('videoPicker');
+
+  // Audit baseline: all timing below is taken from the original EP1 timeline.
+  // triggerAt = final source-scene frame before the next scene begins.
+  // freezeAt  = stable visual frame used during the quiz.
+  // resumeAt  = the first frame of the next original scene, preventing replay or skipped content.
+  // 30 fps source-frame boundaries were checked at 15.80–16.00, 25.80–26.00,
+  // 30.80–31.00, 40.80–41.00, and 55.80–56.00.
+  const groups = [
+    { id:'hello', triggerAt:15.967, freezeAt:15.933, resumeAt:16.000, items:[
+      {id:'hello', word:'HELLO', tapPrompt:'Roy, can you help me find HELLO?', sayPrompt:'Roy, please read HELLO aloud.', areas:[
+        {x:34,y:18,w:446,h:310}
+      ], aliases:['hello','helo','hallo']}
+    ]},
+    { id:'fruit', triggerAt:25.967, freezeAt:25.933, resumeAt:26.000, items:[
+      {id:'apple', word:'APPLE', tapPrompt:'Roy, can you help me find APPLE?', sayPrompt:'Roy, please read APPLE aloud.', areas:[
+        {x:42,y:50,w:212,h:296}, {x:35,y:330,w:142,h:190}
+      ], aliases:['apple','apples']},
+      {id:'banana', word:'BANANA', tapPrompt:'Roy, can you help me find BANANA?', sayPrompt:'Roy, please read BANANA aloud.', areas:[
+        {x:252,y:45,w:205,h:300}, {x:326,y:325,w:155,h:190}
+      ], aliases:['banana','bananas','bananna']}
+    ]},
+    { id:'orange', triggerAt:30.967, freezeAt:30.933, resumeAt:31.000, items:[
+      {id:'orange', word:'ORANGE', tapPrompt:'Roy, can you help me find ORANGE?', sayPrompt:'Roy, please read ORANGE aloud.', areas:[
+        {x:174,y:545,w:300,h:320}, {x:4,y:350,w:170,h:195}
+      ], aliases:['orange','oranges']}
+    ]},
+    { id:'animals', triggerAt:40.967, freezeAt:40.933, resumeAt:41.000, items:[
+      {id:'dog', word:'DOG', tapPrompt:'Roy, can you help me find DOG?', sayPrompt:'Roy, please read DOG aloud.', areas:[
+        {x:270,y:155,w:190,h:250}, {x:0,y:720,w:170,h:190}
+      ], aliases:['dog','dogs','dock','doc']},
+      {id:'bird', word:'BIRD', tapPrompt:'Roy, can you help me find BIRD?', sayPrompt:'Roy, please read BIRD aloud.', areas:[
+        {x:295,y:375,w:200,h:205}, {x:160,y:0,w:270,h:230}
+      ], aliases:['bird','birds','bert']},
+      {id:'butterfly', word:'BUTTERFLY', tapPrompt:'Roy, can you help me find BUTTERFLY?', sayPrompt:'Roy, please read BUTTERFLY aloud.', areas:[
+        {x:275,y:545,w:225,h:230}, {x:325,y:720,w:187,h:190}
+      ], aliases:['butterfly','butterflies','butter fly']}
+    ]},
+    { id:'goodjob', triggerAt:55.967, freezeAt:55.933, resumeAt:56.000, items:[
+      {id:'goodjob', word:'GOOD JOB', tapPrompt:'Roy, can you help me find GOOD JOB?', sayPrompt:'Roy, please read GOOD JOB aloud.', areas:[
+        {x:44,y:82,w:430,h:470}
+      ], aliases:['good job','goodjob','good jobs']}
+    ]},
+    { id:'seeyou', afterEnd:true, freezeAt:59.533, items:[
+      {id:'seeyou', word:'SEE YOU NEXT TIME', tapPrompt:'Roy, can you help me find SEE YOU NEXT TIME?', sayPrompt:'Roy, please read SEE YOU NEXT TIME aloud.', areas:[
+        {x:145,y:500,w:360,h:390}
+      ], aliases:['see you next time','see ya next time','see you nextime']}
+    ]}
+  ];
+
+  let state = {
+    started:false, score:0, groupIndex:0, itemIndex:0, pausedForGroup:false, activeTask:null,
+    activeGroup:null, recognition:null, recognizing:false, selectedVoice:null, usingLocalFile:false, guideReady:false
+  };
+  let pageAudioCtx=null;
+
+  // iPhone Safari can preserve a muted media state after opening an in-app link.
+  // Force a normal media state inside the user's Start tap before playing any audio.
+  async function unlockPageAudio(){
+    try{
+      video.muted=false;
+      video.defaultMuted=false;
+      video.volume=1;
+      video.removeAttribute('muted');
+      const AC=window.AudioContext||window.webkitAudioContext;
+      if(AC){
+        if(!pageAudioCtx) pageAudioCtx=new AC();
+        if(pageAudioCtx.state==='suspended') await pageAudioCtx.resume();
+      }
+      if(window.speechSynthesis){ speechSynthesis.cancel(); speechSynthesis.resume && speechSynthesis.resume(); }
+    }catch(e){}
+  }
+
+  function chooseVoice(){
+    const voices = speechSynthesis.getVoices ? speechSynthesis.getVoices() : [];
+    const preferred = voices.find(v => /Ava|Samantha|Allison|Siri|Karen/i.test(v.name) && /^en-US/i.test(v.lang))
+      || voices.find(v => /^en-US/i.test(v.lang) && /enhanced|premium|natural/i.test(v.name))
+      || voices.find(v => /^en-US/i.test(v.lang))
+      || voices.find(v => /^en/i.test(v.lang));
+    state.selectedVoice = preferred || null;
+  }
+  chooseVoice();
+  if (window.speechSynthesis) speechSynthesis.onvoiceschanged = chooseVoice;
+
+  function fmt(t){
+    t = Math.max(0, Math.floor(t||0));
+    const m = Math.floor(t/60), s = t%60;
+    return `${m}:${String(s).padStart(2,'0')}`;
+  }
+  function updateTime(){
+    timePill.textContent = `${fmt(video.currentTime)} / 1:00`;
+    bar.style.width = `${Math.min(100, (video.currentTime/60)*100)}%`;
+  }
+  function setMode(label){ modePill.textContent = label; }
+  function setHelper(title,text){ helperTitle.textContent = title; helperText.textContent = text; }
+  function setPrompt(text,show=true){ promptText.textContent = text; promptPill.classList.toggle('show', show); }
+  function ding(){
+    try{
+      const ctx = new (window.AudioContext||window.webkitAudioContext)();
+      const now = ctx.currentTime;
+      const o1 = ctx.createOscillator(), o2 = ctx.createOscillator(), g = ctx.createGain();
+      o1.type='sine'; o2.type='triangle'; o1.frequency.setValueAtTime(880,now); o2.frequency.setValueAtTime(1320,now+0.03);
+      g.gain.setValueAtTime(0.001,now); g.gain.exponentialRampToValueAtTime(0.18,now+0.02); g.gain.exponentialRampToValueAtTime(0.001,now+0.38);
+      o1.connect(g); o2.connect(g); g.connect(ctx.destination); o1.start(now); o2.start(now+0.03); o1.stop(now+0.4); o2.stop(now+0.4);
+    }catch(e){}
+  }
+  function speakGuide(text, onend){
+    if (!window.speechSynthesis) { onend && onend(); return; }
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang='en-US';
+    // Clear but still natural: do not rush a long prompt for a four-year-old.
+    u.rate=0.84; u.pitch=1.02; u.volume=1;
+    if (state.selectedVoice) u.voice = state.selectedVoice;
+    u.onend = ()=> onend && onend();
+    u.onerror = ()=> onend && onend();
+    speechSynthesis.speak(u);
+  }
+  function speak(text, onend){ speakGuide(text,onend); }
+  function setMicReady(task){
+    if(state.activeTask!==task || !speechSheet.classList.contains('show')) return;
+    state.guideReady=true;
+    micBtn.disabled=false;
+    micBtn.classList.remove('busy');
+    speechHint.innerHTML=`${task.sayPrompt}<small>Tap the microphone, then read it aloud.</small>`;
+  }
+  function playReadingGuide(task){
+    state.guideReady=false;
+    micBtn.disabled=true;
+    micBtn.classList.remove('busy');
+    speechHint.innerHTML=`Listen first.<small>${task.sayPrompt}</small>`;
+    // The full prompt is spoken once. Roy taps the microphone only after it finishes.
+    speakGuide(`Roy. Please read ${task.word} aloud.`, ()=>setMicReady(task));
+  }
+  function showToast(text, ms=900){
+    toastText.textContent=text; toast.classList.add('show');
+    setTimeout(()=>toast.classList.remove('show'), ms);
+  }
+  function updateScore(){ scoreEl.textContent = state.score; }
+  function areaStyle(a){
+    return `left:${(a.x/512)*100}%;top:${(a.y/910)*100}%;width:${(a.w/512)*100}%;height:${(a.h/910)*100}%;`;
+  }
+  function clearHotspots(){ tapLayer.innerHTML=''; tapLayer.classList.remove('active'); }
+  function buildHotspots(task){
+    clearHotspots();
+    task.areas.forEach((a, idx)=>{
+      const btn = document.createElement('button');
+      btn.className = 'hotspot';
+      btn.setAttribute('aria-label', task.word + ' target ' + (idx+1));
+      btn.style.cssText = areaStyle(a);
+      btn.addEventListener('click', ()=>handleCorrectTap(task));
+      tapLayer.appendChild(btn);
+    });
+    tapLayer.classList.add('active');
+  }
+  function normalize(s){
+    return (s||'').toLowerCase().replace(/[^a-z\s]/g,' ').replace(/\s+/g,' ').trim();
+  }
+  function heardTarget(text, task){
+    const n = normalize(text);
+    return task.aliases.some(a => n.includes(a));
+  }
+  function showCurrentItem(){
+    const group=state.activeGroup;
+    const task=group && group.items[state.itemIndex];
+    if(!task) return;
+    state.activeTask=task;
+    clearHotspots();
+    setMode('Listen');
+    buildHotspots(task);
+    setPrompt(task.tapPrompt, true);
+    setHelper('Find it', `Roy, can you help me find ${task.word}?`);
+    // The original scene is already fully finished before this point.
+    // Play one short English cue only once for the current target.
+    const currentTask=task;
+    setTimeout(()=>{
+      if(state.activeTask===currentTask && state.pausedForGroup){
+        speakGuide(`Roy. Can you help me find ${currentTask.word}?`, ()=>{});
+      }
+    },160);
+  }
+
+  function pauseForGroup(group){
+    state.pausedForGroup=true;
+    state.activeGroup=group;
+    state.itemIndex=0;
+    state.activeTask=null;
+    clearHotspots();
+    setPrompt('', false);
+    video.pause();
+    // Display the last stable frame of the completed original scene.
+    // This only changes the display frame; nextTask() seeks back to resumeAt before playback.
+    const reveal=()=>requestAnimationFrame(showCurrentItem);
+    const now=Number(video.currentTime||0);
+    if(Math.abs(now-group.freezeAt)>0.01){
+      let revealed=false;
+      const done=()=>{ if(revealed) return; revealed=true; video.removeEventListener('seeked',done); reveal(); };
+      video.addEventListener('seeked',done);
+      try{ video.currentTime=group.freezeAt; }catch(e){ done(); }
+      setTimeout(done,700);
+    } else reveal();
+  }
+
+  function handleCorrectTap(task){
+    clearHotspots(); setPrompt('', false); ding();
+    showToast(`Good! ${task.word}`);
+    openSpeech(task);
+  }
+  function openSpeech(task){
+    setMode('Say it');
+    speechWord.textContent=task.word;
+    micStar.classList.remove('on');
+    speechSheet.classList.add('show');
+    setHelper('Say it', `Roy, please read ${task.word} aloud.`);
+    // One deliberate microphone tap is required before Roy speaks.
+    playReadingGuide(task);
+  }
+  function closeSpeech(){
+    speechSheet.classList.remove('show');
+    state.guideReady=false;
+    micBtn.disabled=false;
+    micBtn.classList.remove('busy');
+  }
+  function nextTask(){
+    state.score+=1; updateScore();
+    closeSpeech();
+    setPrompt('',false);
+    state.itemIndex+=1;
+    const group=state.activeGroup;
+    if(group && state.itemIndex<group.items.length){
+      setTimeout(showCurrentItem,220);
+      return;
+    }
+    state.groupIndex+=1;
+    state.itemIndex=0;
+    state.pausedForGroup=false;
+    state.activeTask=null;
+    state.activeGroup=null;
+    setMode('Watch');
+    setHelper('Keep watching','Watch the next original scene.');
+    // Resume at the verified scene boundary, not from the quiz display frame.
+    const resumeAt=group && Number.isFinite(group.resumeAt) ? group.resumeAt : null;
+    let resumed=false;
+    const play=()=>{
+      if(resumed) return;
+      resumed=true;
+      try{video.playbackRate=1;}catch(e){}
+      video.play().catch(()=>{});
+    };
+    if(resumeAt!==null && Math.abs((video.currentTime||0)-resumeAt)>0.01){
+      video.addEventListener('seeked',play,{once:true});
+      try{video.currentTime=resumeAt;}catch(e){play();}
+      setTimeout(play,700);
+    } else setTimeout(play,220);
+  }
+
+  function startRecognition(){
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR){
+      speak('Speech input is not available on this device.', ()=>{});
+      setHelper('Speech not available', 'This browser cannot use microphone speech input.');
+      return;
+    }
+    if (state.recognizing || !state.guideReady) return;
+    const task = state.activeTask;
+    if (!task) return;
+    if (window.speechSynthesis) speechSynthesis.cancel();
+    let recog = new SR();
+    state.recognition = recog;
+    state.recognizing = true;
+    state.guideReady = false;
+    micBtn.disabled = true;
+    micBtn.classList.add('busy');
+    speechHint.innerHTML = `Listening...<small>Roy, please read ${task.word} aloud.</small>`;
+    try{
+      recog.lang = 'en-US';
+      recog.interimResults = true;
+      recog.continuous = false;
+      recog.maxAlternatives = 5;
+    }catch(e){}
+    let matched = false;
+    let fallbackTimer = setTimeout(()=>{
+      if (!matched && state.recognizing){
+        speechHint.innerHTML = `I didn't catch it yet.<small>Tap the microphone and read ${task.word} aloud again.</small>`;
+        state.guideReady=true;
+        micBtn.disabled=false;
+        micBtn.classList.remove('busy');
+      }
+    }, 3500);
+    recog.onresult = (ev)=>{
+      let joined = '';
+      for(let i=ev.resultIndex; i<ev.results.length; i++){
+        joined += ' ' + ev.results[i][0].transcript;
+      }
+      if (heardTarget(joined, task)){
+        matched = true;
+        clearTimeout(fallbackTimer);
+        try{recog.stop();}catch(e){}
+        micStar.classList.add('on');
+        ding();
+        speechHint.innerHTML = `Great!<small>${task.word}</small>`;
+        showToast(`⭐ ${task.word}`);
+        state.recognizing = false;
+        state.guideReady=true;
+        micBtn.disabled=false;
+        micBtn.classList.remove('busy');
+        setTimeout(nextTask, 650);
+      }
+    };
+    recog.onerror = ()=>{
+      clearTimeout(fallbackTimer);
+      state.recognizing = false;
+      micBtn.classList.remove('busy');
+      state.guideReady=true;
+      micBtn.disabled=false;
+      speechHint.innerHTML = `${task.sayPrompt}<small>Tap the microphone, then read it aloud.</small>`;
+    };
+    recog.onend = ()=>{
+      clearTimeout(fallbackTimer);
+      if (!matched){
+        state.recognizing = false;
+        state.guideReady=true;
+        micBtn.disabled=false;
+        micBtn.classList.remove('busy');
+      }
+    };
+    try{recog.start();}catch(e){
+      state.recognizing = false;
+      micBtn.classList.remove('busy');
+      state.guideReady=true;
+      micBtn.disabled=false;
+      speechHint.innerHTML = `${task.sayPrompt}<small>Tap the microphone, then read it aloud.</small>`;
+    }
+  }
+
+  function maybePauseForUpcomingGroup(mediaTime){
+    if(!state.started || state.pausedForGroup) return;
+    const group=groups[state.groupIndex];
+    if(!group || group.afterEnd) return;
+    if((Number.isFinite(mediaTime)?mediaTime:video.currentTime)>=group.triggerAt) pauseForGroup(group);
+  }
+
+  function monitorFrame(now, metadata){
+    updateTime();
+    maybePauseForUpcomingGroup(metadata && Number.isFinite(metadata.mediaTime) ? metadata.mediaTime : video.currentTime);
+    if(video.requestVideoFrameCallback) video.requestVideoFrameCallback(monitorFrame);
+    else requestAnimationFrame(()=>monitorFrame());
+  }
+  if(video.requestVideoFrameCallback) video.requestVideoFrameCallback(monitorFrame);
+  else requestAnimationFrame(()=>monitorFrame());
+
+  video.addEventListener('timeupdate', updateTime);
+
+  video.addEventListener('loadedmetadata', updateTime);
+  video.addEventListener('ended', ()=>{
+    const group=groups[state.groupIndex];
+    if(state.started && group && group.afterEnd && !state.pausedForGroup){
+      pauseForGroup(group);
+      return;
+    }
+    setMode('Done'); setPrompt('', false); setHelper('Finished', 'Episode complete. Great job!'); showToast('Episode complete!', 1400);
+  });
+
+  startBtn.addEventListener('click', async ()=>{
+    await unlockPageAudio();
+    startScreen.style.display='none'; state.started=true; setMode('Watch'); setPrompt('', false); updateTime();
+    setHelper('Watch first', 'Watch the whole scene first.');
+    try{ video.muted=false; video.volume=1; await video.play(); }catch(e){}
+  });
+  pickVideoBtn.addEventListener('click', ()=> videoPicker.click());
+  videoPicker.addEventListener('change', (e)=>{
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    video.src = url; video.load();
+    state.usingLocalFile = true;
+    setHelper('Video ready', 'Tap Start.');
+  });
+  micBtn.addEventListener('click', async ()=>{ await unlockPageAudio(); startRecognition(); });
+  hearAgainBtn.addEventListener('click', ()=>{ if (state.activeTask) playReadingGuide(state.activeTask); });
+  skipSpeechBtn.addEventListener('click', ()=>{ showToast('Continue'); nextTask(); });
+
+  updateTime(); updateScore();
+})();
+</script>
+</body>
+</html>
